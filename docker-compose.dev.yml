@@ -1,0 +1,15 @@
+version: "3.9"
+
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+services:
+  app:
+    build:
+      target: builder       # use the builder stage (includes devDependencies)
+    command: npm run dev     # nodemon for hot-reload
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./src:/app/src       # mount source for live reload
+    ports:
+      - "3000:3000"
+      - "9229:9229"          # Node.js debugger port
